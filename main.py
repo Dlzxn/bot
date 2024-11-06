@@ -54,6 +54,9 @@ keyboard_menu_true=InlineKeyboardMarkup(
 keyboard_menu_return=InlineKeyboardMarkup(
      inline_keyboard=[[url_button_return]]
 )
+keyboard_menu_otn=InlineKeyboardMarkup(
+     inline_keyboard=[[url_button_return], [url_button_del_otn]]
+)
 
 
 
@@ -87,6 +90,19 @@ async def start_cm(message: types.Message):
         zamena_para(int(decode_payload(message.text[7:])), message.from_user.id)
         await message.answer(f'Теперь ВЫ и {from_bd(1, int(decode_payload(message.text[7:])))} пара!')
 
+@dp.callback_query(F.data=="button_return")
+async def start_cm(callback: CallbackQuery):
+    if from_bd(4, callback.message.chat.id)==None:
+        await callback.message.answer_photo(photo=FSInputFile('image/menu.jpg', filename='кру'),
+                        caption=f'Приветствую тебя в боте любви!\n'
+                        f'Для построения отношений выберите "Создать отношения"',
+                        reply_markup=keyboard_menu
+                        )
+    else:
+        await callback.message.answer_photo(photo=FSInputFile('image/menu.jpg', filename='кру'),
+                            caption=f'Приветствую тебя в боте любви!\n'
+                            f'Уже бежишь к своей половинке?',
+                            reply_markup=keyboard_menu_true)
 
 
 
@@ -110,8 +126,12 @@ async def process_button_buy_press(callback: CallbackQuery):
     if callback.message.text != "Ваши отношения":
         if from_bd(4, callback.from_user.id):
             await callback.message.edit_caption(
-                caption="Ваши отношения",
-                reply_markup=keyboard_menu_buy
+                caption=f'Ваши отношения:\n'
+                f'Ваша пара {from_bd(1, callback.from_user.id)}\n'
+                f'Уровень отношений: {from_bd(6, callback.from_user.id)}\n'
+                f'Прогресс: {from_bd(5, callback.from_user.id)}\n'
+                f'Любовь творит чудеса!',
+                reply_markup=keyboard_menu_otn
         )
     await callback.answer()
 
