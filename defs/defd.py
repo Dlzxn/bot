@@ -42,6 +42,7 @@ def zamena_para(user_id: int, smena):
     sqlite_connection = sqlite3.connect('bd/bd')
     cursor = sqlite_connection.cursor()
     cursor.execute('UPDATE users SET para_id = ? WHERE user_id = ?', (smena, user_id))
+    cursor.execute('UPDATE users SET para_id = ? WHERE user_id = ?', (user_id, smena))
     sqlite_connection.commit()
     sqlite_connection.close()
 #подмена элемента
