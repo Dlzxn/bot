@@ -14,8 +14,13 @@ from defs.defd import ref_prov, db_table_val, from_bd, zamena_para
 from aiogram.utils.deep_linking import create_start_link, decode_payload
 from aiogram import types
 import base64
-
-
+import logging
+from logs.log import main
+#конфиг логов
+logging.basicConfig(
+    format='#%(levelname)-8s %(name)s:%(funcName)s - %(message)s'
+)
+main()
 
 load_dotenv()
 
@@ -86,7 +91,8 @@ async def start_cm(message: types.Message):
                             caption=f'Приветствую тебя в боте любви!\n'
                             f'Уже бежишь к своей половинке?',
                             reply_markup=keyboard_menu_true)
-    if (message.text[7:])!="" and (message.text[7:])!=message.from_user.id:
+    print((int(decode_payload(message.text[7:])))!=message.from_user.id)
+    if (message.text[7:])!="" and (int(decode_payload(message.text[7:])))!=message.from_user.id:
         zamena_para(int(decode_payload(message.text[7:])), message.from_user.id)
         await message.answer(f'Теперь ВЫ и {from_bd(1, int(decode_payload(message.text[7:])))} пара!')
 
