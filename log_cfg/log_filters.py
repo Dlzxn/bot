@@ -1,5 +1,9 @@
 import logging
 
+class InfoFilter(logging.Filter):
+    def filter(self, record):
+        return record.levelname=='INFO'
+
 
 class ErrorLogFilter(logging.Filter):
     def filter(self, record):

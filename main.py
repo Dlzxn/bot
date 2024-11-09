@@ -16,21 +16,22 @@ from aiogram import types
 import base64
 import logging.config
 import logging
+from log_cfg.def_log import start_log
+from log_cfg.logging_conf import logging_config
 
-#конфиг логов
-import yaml #для logging_settings на yaml
+
+logging.config.dictConfig(logging_config) #загрузка настроек
+
+start_log()
 
 
-with open('log_cfg/logging_config.yaml', 'rt') as f:
-    config = yaml.safe_load(f.read())
-
-logging.config.dictConfig(config)
 
 
 load_dotenv()
 # Создаем объекты бота и диспетчера
 bot = Bot(os.getenv('TOKEN'))
 dp = Dispatcher()
+
 
 
 #инлайн кнопки
