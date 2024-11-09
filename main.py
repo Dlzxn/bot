@@ -14,16 +14,20 @@ from defs.defd import ref_prov, db_table_val, from_bd, zamena_para
 from aiogram.utils.deep_linking import create_start_link, decode_payload
 from aiogram import types
 import base64
+import logging.config
 import logging
-from logs.log import main
+
 #конфиг логов
-logging.basicConfig(
-    format='#%(levelname)-8s %(name)s:%(funcName)s - %(message)s'
-)
-main()
+import yaml #для logging_settings на yaml
+
+
+with open('log_cfg/logging_config.yaml', 'rt') as f:
+    config = yaml.safe_load(f.read())
+
+logging.config.dictConfig(config)
+
 
 load_dotenv()
-
 # Создаем объекты бота и диспетчера
 bot = Bot(os.getenv('TOKEN'))
 dp = Dispatcher()
