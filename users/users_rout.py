@@ -10,7 +10,7 @@ import os
 import sqlite3
 import telebot
 from aiogram.types import FSInputFile
-from defs.defd import ref_prov, db_table_val, from_bd, zamena_para
+from defs.defd import ref_prov, db_table_val, from_bd, zamena_para, progr
 from aiogram.utils.deep_linking import create_start_link, decode_payload
 from aiogram import types
 import base64
@@ -25,6 +25,14 @@ from keyboard.keyb import keyboard_menu, keyboard_menu_true, keyboard_menu_retur
 router = Router()
 
 
+@router.message(Command(commands=['chmok']))
+async def process_button_chmok(callback: CallbackQuery, bot: Bot):
+    progr(callback.from_user.id, from_bd(4, callback.from_user.id), 5)
+    await callback.answer(f'Вы поцеловали свою половинку❤️\n\n'
+                          f'Прогресс отношений: +5'
+                          )
+    await bot.send_message(from_bd(4, callback.from_user.id), "❤️Ваш партнер вас поцеловал❤️")
+
 
 @router.message(Command(commands=['help']))
 async def process_help_command(message: Message):
@@ -32,6 +40,7 @@ async def process_help_command(message: Message):
                          f'Здесь вы можете настраивать и развивать свои отношения\n'
                          f'Для взаимодействия отправьте /start\n'
                          )
+    print(message)
 
 @router.message(CommandStart)
 async def start_cm(message: types.Message):
@@ -98,7 +107,8 @@ async def process_button_buy_press(callback: CallbackQuery):
                 f'Ваша пара {from_bd(1, callback.from_user.id)}\n'
                 f'Уровень отношений: {from_bd(6, callback.from_user.id)}\n'
                 f'Прогресс: {from_bd(5, callback.from_user.id)}\n'
-                f'Любовь творит чудеса!',
+                f'Любовь творит чудеса!\n'
+                f'Поцеловать свою половинку: /chmok',
                 reply_markup=keyboard_menu_otn
         )
     await callback.answer()

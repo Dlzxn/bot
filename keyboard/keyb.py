@@ -1,7 +1,7 @@
 from aiogram.types import (CallbackQuery, InlineKeyboardButton,
                            InlineKeyboardMarkup, Message, PhotoSize)
 
-from keyboard.buttons.button import url_button_my_otn, url_button_1, url_button_return, url_button_del_otn, url_button_del
+from keyboard.buttons.button import url_button_my_otn, url_button_1, url_button_return, url_button_del_otn, url_button_del,url_button_chmok
 
 
 #обьект инлайн клавиатуры
@@ -15,5 +15,5 @@ keyboard_menu_return=InlineKeyboardMarkup(
      inline_keyboard=[[url_button_return]]
 )
 keyboard_menu_otn=InlineKeyboardMarkup(
-     inline_keyboard=[[url_button_return], [url_button_del_otn]]
+     inline_keyboard=[[url_button_return], [url_button_del_otn], [url_button_chmok]]
 )

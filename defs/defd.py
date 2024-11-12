@@ -1,6 +1,7 @@
 import sqlite3
 from log_cfg.def_log import start_log
-#проверка бд есть ли юзер
+
+
 def ref_prov(id_use):
     sqlite_connection = sqlite3.connect('bd/bd1/bd')
     cursor = sqlite_connection.cursor()
@@ -48,6 +49,25 @@ def zamena_para(user_id: int, smena):
     start_log()
     cursor.execute('UPDATE users SET para_id = ? WHERE user_id = ?', (smena, user_id))
     cursor.execute('UPDATE users SET para_id = ? WHERE user_id = ?', (user_id, smena))
+    sqlite_connection.commit()
+    sqlite_connection.close()
+#подмена элемента
+
+def progr(user_id: int,user_para: int, kol: int):
+    sqlite_connection = sqlite3.connect('bd/bd1/bd')
+    cursor = sqlite_connection.cursor()
+    sqlite_select_query = """SELECT * from users"""
+    start_log()
+    cursor.execute(sqlite_select_query)
+    records = cursor.fetchall()
+    for row in records:
+        if row[0]==user_id:
+            col=row[5]
+    col+=kol
+    cursor = sqlite_connection.cursor()
+    start_log()
+    cursor.execute('UPDATE users SET progr_otn = ? WHERE user_id = ?', (col, user_id))
+    cursor.execute('UPDATE users SET progr_otn = ? WHERE user_id = ?', (col, user_para))
     sqlite_connection.commit()
     sqlite_connection.close()
 #подмена элемента

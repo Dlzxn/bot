@@ -20,3 +20,7 @@ url_button_del=InlineKeyboardButton(
      text="ДА", #согласие на удаление отношений
      callback_data='button_del'
 )
+url_button_chmok=InlineKeyboardButton(
+     text="Поцеловать",
+     callback_data='button_chmok'
+)
