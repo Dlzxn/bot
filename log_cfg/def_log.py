@@ -4,11 +4,11 @@ import logging.config
 
 
 logger=logging.getLogger(__name__)
-print(logger)
 def start_log():
-    logger.debug('Лог DEBUG')
-    logger.info('Лог INFO')
-    logger.warning('Лог WARNING')
-    logger.error('Лог ERROR')
-    logger.critical('Лог CRITICAL')
-print("444")
+    logger.info('log INFO')
+
+
+
+def user_new(user, id):
+    us_id_sp=[user, id]
+    logger.info(us_id_sp)

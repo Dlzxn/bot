@@ -9,8 +9,12 @@ logging_config = {
             'format': '#%(levelname)-8s %(name)s:%(funcName)s - %(message)s'
         },
         'formatter_start': {
-            'format': '[%(asctime)s] #%(levelname)-8s %(filename)s:'
-                      '%(lineno)d - %(name)s:%(funcName)s - {BOT_START_WORK} - %(message)s'
+             'format': f'[%(asctime)s]-<BOT STARTING WORK> ::%(name)s: %(funcName)s - %(message)s'
+            # 'format': '[%(asctime)s] #%(levelname)-8s %(filename)s:'
+            #           '%(lineno)d - %(name)s:%(funcName)s - {BOT_START_WORK} - %(message)s'
+        },
+        'formatter_bd':{
+            'format': f'[%(asctime)s -<OPEN SQL base> ::%(name)s]'
         }
 
     },
@@ -32,42 +36,51 @@ logging_config = {
     'handlers': { 'info_h': {
             'class': 'logging.FileHandler',
             'filename': 'files_log/info.log',
-            'mode': 'w',
+            'mode': 'a',
             'level': 'DEBUG',
             'formatter': 'formatter_start',
-            'filters': ['error_filter']
+            'filters': ['info_filter']
         },
         'critical_file': {
             'class': 'logging.FileHandler',
             'filename': 'files_log/critical.log',
-            'mode': 'w',
+            'mode': 'a',
             'formatter': 'formatter_start',
             'filters': ['critical_filter']
         },
         'WARNING_file': {
             'class': 'logging.FileHandler',
             'filename': 'files_log/WARNING.log',
-            'mode': 'w',
+            'mode': 'a',
             'formatter': 'formatter_start',
-            'filters': ['critical_filter']
+            'filters': ['debug_warning_filter']
         },
         'ERROR_file': {
             'class': 'logging.FileHandler',
             'filename': 'files_log/ERROR.log',
-            'mode': 'w',
+            'mode': 'a',
             'formatter': 'formatter_start',
             'filters': ['critical_filter']
+        },
+        'info_bas': {
+            'class': 'logging.FileHandler',
+            'filename': 'files_log/info.log',
+            'mode': 'a',
+            'level': 'DEBUG',
+            'formatter': 'formatter_bd',
+            'filters': ['info_filter']
         }
     },
 
     'loggers': {
-        'log_cfg.mod_log': {
+        'log_cfg.def_log': {
             'level': 'INFO',
             'handlers': ['info_h', 'critical_file', 'WARNING_file', 'ERROR_file']
 
         },
-        'log_cfg.def_log': {
-            'handlers': ['info_h']
+        'defs.defd': {
+            'level': 'INFO',
+            'handlers': ['info_bas']
         }
     },
     'root': {

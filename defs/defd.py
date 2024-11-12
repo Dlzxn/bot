@@ -1,9 +1,11 @@
 import sqlite3
+from log_cfg.def_log import start_log
 #проверка бд есть ли юзер
 def ref_prov(id_use):
-    sqlite_connection = sqlite3.connect('bd/bd')
+    sqlite_connection = sqlite3.connect('bd/bd1/bd')
     cursor = sqlite_connection.cursor()
     sqlite_select_query = """SELECT * from users"""
+    start_log()
     cursor.execute(sqlite_select_query)
     records = cursor.fetchall()
     for row in records:
@@ -17,7 +19,8 @@ def ref_prov(id_use):
 
 
 def db_table_val(user_id: int, user_name: str, user_surname: str, username: str):
-    conn = sqlite3.connect('bd/bd', check_same_thread=False)
+    conn = sqlite3.connect('bd/bd1/bd', check_same_thread=False)
+    start_log()
     cursor = conn.cursor() #курсор для бд
     cursor.execute('INSERT INTO users (user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?)', (user_id, user_name, user_surname, username))
     conn.commit()
@@ -25,9 +28,10 @@ def db_table_val(user_id: int, user_name: str, user_surname: str, username: str)
 
 
 def from_bd(num: int, user_id: int):
-    sqlite_connection = sqlite3.connect('bd/bd')
+    sqlite_connection = sqlite3.connect('bd/bd1/bd')
     cursor = sqlite_connection.cursor()
     sqlite_select_query = """SELECT * from users"""
+    start_log()
     cursor.execute(sqlite_select_query)
     records = cursor.fetchall()
     for row in records:
@@ -39,8 +43,9 @@ def from_bd(num: int, user_id: int):
 
 
 def zamena_para(user_id: int, smena):
-    sqlite_connection = sqlite3.connect('bd/bd')
+    sqlite_connection = sqlite3.connect('bd/bd1/bd')
     cursor = sqlite_connection.cursor()
+    start_log()
     cursor.execute('UPDATE users SET para_id = ? WHERE user_id = ?', (smena, user_id))
     cursor.execute('UPDATE users SET para_id = ? WHERE user_id = ?', (user_id, smena))
     sqlite_connection.commit()
